@@ -1,0 +1,38 @@
+@import '_variables.scss'; 
+
+/* -------------------------------------- */
+/* الستايلات الأساسية (Base Styles) */
+/* -------------------------------------- */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: $font-family-primary; 
+  background-color: $dark-primary; 
+  color: $light-text; 
+  direction: rtl;  
+  text-align: right; 
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+h1, h2, h3 {
+  color: $light-text;
+  font-weight: bold;
+}
+
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.container {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: 0 20px;
+}

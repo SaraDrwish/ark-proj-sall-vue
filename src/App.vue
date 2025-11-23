@@ -1,118 +1,72 @@
 <template>
-  <div>
-    <!-- Navbar -->
-    <header>
-      <div class="container navbar">
-        <div class="logo">أركان</div>
-        <div class="nav-links">
-          <a href="#">الرئيسية</a>
-          <a href="#">المنتجات</a>
-          <a href="#">عن أركان</a>
-          <a href="#">تواصل</a>
-        </div>
-      </div>
-    </header>
-
-    <!-- Hero -->
-    <section class="hero">
-      <div class="container">
-        <div class="hero-content">
-          <h1>مرحبًا بك في عالم التفاصيل الأنيقة</h1>
-          <p>نؤمن أن الجمال يسكن التفاصيل الصغيرة</p>
-          <p>هنا ستجد تحفًا وديكور يناسب ذوقك الرفيع، مزيج فريد من الأناقة الكلاسيكية وروح العصرية في آن واحد</p>
-          <div class="btns">
-            <button class="btn-primary">التسوق الآن</button>
-            <button class="btn-secondary">استكشف المزيد</button>
-          </div>
-        </div>
-
-        <div class="counter">
-          <div><span>+64</span><p>سنة خبرة</p></div>
-          <div><span>481+</span><p>منتج حصري</p></div>
-          <div><span>45K+</span><p>عميل سعيد</p></div>
-          <div><span>145+</span><p>مدينة نوصلها</p></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Featured Products -->
-    <section>
-      <div class="container">
-        <h2 class="section-title">أحدث المنتجات</h2>
-        <div class="products-grid">
-          <div class="product-card" v-for="n in 8" :key="n">
-            <img src="https://arkan.sa/cdn/shop/products/1.jpg" alt="منتج">
-            <div class="info">
-              <h3>طاولة جانبية فخمة</h3>
-              <p class="price">1,100 ر.س</p>
-              <p class="old-price">1,600 ر.س</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Instagram Gallery -->
-    <section style="background:#0f0606;">
-      <div class="container">
-        <h2 class="section-title">تابعونا على إنستقرام</h2>
-        <p style="text-align:center;margin-bottom:40px;color:#ccc;">@arkan_decor</p>
-        <div class="gallery">
-          <img v-for="i in 9" :key="i" src="https://arkan.sa/cdn/shop/files/insta1.jpg" style="border-radius:15px;">
-        </div>
-      </div>
-    </section>
-
-    <!-- Features -->
-    <section>
-      <div class="container">
-        <h2 class="section-title">لماذا تختار أركان؟</h2>
-        <div class="features">
-          <div class="feature-box">
-            <h3>توصيل سريع وآمن</h3>
-            <p>نصلك خلال 3-7 أيام في كل مدن المملكة</p>
-          </div>
-          <div class="feature-box">
-            <h3>ضمان جودة 100%</h3>
-            <p>استرجاع مجاني خلال 14 يوم</p>
-          </div>
-          <div class="feature-box">
-            <h3>دفع عند الاستلام</h3>
-            <p>ادفع نقداً أو بالبطاقة عند الاستلام</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-      <div class="container">
-        <div class="logo">أركان</div>
-        <p>متجر ديكور فخم يقدم أرقى القطع المنزلية</p>
-        <div class="socials">
-          <a href="#">Instagram</a>
-          <a href="#">WhatsApp</a>
-          <a href="#">Snapchat</a>
-        </div>
-        <p style="margin-top:40px;opacity:0.6;">© 2025 أركان - جميع الحقوق محفوظة</p>
-      </div>
-    </footer>
+  <div id="app-container">
+    <AppHeader /> 
+    
+    <main>
+      <HeroSection /> 
+      <ProductsSlider sectionTitle="أحدث المنتجات" :products="latestProducts" />
+      <WhyChooseUs />
+      <ProductsSlider sectionTitle="الأكثر تداولاً" :products="trendingProducts" />
+      <StorySection />
+      </main>
+    
+    <AppFooter />
   </div>
 </template>
 
-<script setup>
-import { onMounted } from 'vue'
-import './assets/style.css'
+<script>
+// المسارات تبدأ من 'src/' لأن App.vue موجود في src/
 
-onMounted(() => {
-  document.querySelectorAll('.product-card').forEach((card, i) => {
-    card.style.animationDelay = `${i * 0.1}s`
-    card.classList.add('fade-up')
-  })
-})
+// مكونات الـ Layout
+import AppHeader from './components/layout/AppHeader.vue'; 
+import AppFooter from './components/layout/AppFooter.vue';
+
+// مكونات عامة
+import ProductsSlider from './components/common/ProductsSlider.vue'; 
+
+// مكونات الأقسام (أضف باقي الاستيرادات هنا لاحقاً)
+import HeroSection from './components/sections/HeroSection.vue';
+import StorySection from './components/sections/StorySection.vue';
+import WhyChooseUs from './components/sections/WhyChooseUs.vue';
+
+
+import productImg1 from './assets/imgs/0dd17c99d7d31d1b7dca7cbe7259c536.jpg'; // ساعة القمر
+import productImg2 from './assets/imgs/12b7dfb1de3206f402c2b55a1204aa62 (1).jpg'; // مصباح الهلال
+import productImg3 from './assets/imgs/4eb4444f37fc2fe43000b6d1151ea01e.jpg'; // رفوف الخشب والأضواء
+import productImg4 from './assets/imgs/193eec689430c83928d7a9e99c4ceb09.jpg';  
+import productImg5 from './assets/imgs/1.jpg'; 
+import productImg6 from './assets/imgs/7b27cd6499dc0c5da56bc20f7cc33429.jpg';  
+import productImg7 from './assets/imgs/ac26ade7d84cfda976085066cd5ad590.jpg';  
+import productImg8 from './assets/imgs/51761f1e6ab10512291628816c007f14.jpg';  
+
+
+export default {
+  name: 'App',
+  components: {
+    AppHeader,
+    AppFooter,
+    ProductsSlider,
+    HeroSection,
+    StorySection,
+    WhyChooseUs
+    // ... أضف باقي المكونات
+  },
+  data() {
+      // يمكنك استخدام Pinia أو Vuex لإدارة المنتجات بدلاً من البيانات المحلية
+      return {
+          latestProducts: [
+              { id: 1, name: 'مصابيح مرنة', price: '٣٠٠', isFavorite: false, imageUrl: productImg1 },
+              { id: 2, name: 'مصباح ليلي طويل', price: '٨٠٠', isFavorite: true, imageUrl: productImg2 },
+              { id: 3, name: 'طاولة خشب', price: '١١٠٠', isFavorite: false, imageUrl: productImg3 },
+              { id: 4, name: 'إناء فني', price: '٤٥٠', isFavorite: false, imageUrl: productImg4 },
+              { id: 5, name: 'لوحة حائط', price: '٧٥٠', isFavorite: false, imageUrl:  productImg5 },
+          ], 
+          trendingProducts: [
+              { id: 6, name: 'ملصقات حائط', price: '١٥٠', isFavorite: false, imageUrl: productImg6 },
+              { id: 7, name: 'أكواب قهوة', price: '٢٠٠', isFavorite: false, imageUrl: productImg7 },
+              { id: 7, name: ' قهوة', price: '1٠٠', isFavorite: false, imageUrl: productImg8},
+          ]
+      }
+  }
+};
 </script>
-
-<style scoped>
-.fade-up { opacity:0; transform:translateY(50px); animation:fadeUp 0.8s forwards; }
-@keyframes fadeUp { to { opacity:1; transform:translateY(0); } }
-</style>
