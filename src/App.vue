@@ -8,6 +8,7 @@
       <WhyChooseUs />
       <ProductsSlider sectionTitle="الأكثر تداولاً" :products="trendingProducts" />
       <StorySection />
+      <FAQSection />
       </main>
     
     <AppFooter />
@@ -28,7 +29,7 @@ import ProductsSlider from './components/common/ProductsSlider.vue';
 import HeroSection from './components/sections/HeroSection.vue';
 import StorySection from './components/sections/StorySection.vue';
 import WhyChooseUs from './components/sections/WhyChooseUs.vue';
-
+import FAQSection from './components/sections/FAQSection.vue';
 
 import productImg1 from './assets/imgs/0dd17c99d7d31d1b7dca7cbe7259c536.jpg'; // ساعة القمر
 import productImg2 from './assets/imgs/12b7dfb1de3206f402c2b55a1204aa62 (1).jpg'; // مصباح الهلال
@@ -48,8 +49,8 @@ export default {
     ProductsSlider,
     HeroSection,
     StorySection,
-    WhyChooseUs
-    // ... أضف باقي المكونات
+    WhyChooseUs,
+    FAQSection
   },
   data() {
       // يمكنك استخدام Pinia أو Vuex لإدارة المنتجات بدلاً من البيانات المحلية

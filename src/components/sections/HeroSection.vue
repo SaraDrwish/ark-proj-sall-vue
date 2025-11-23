@@ -11,8 +11,7 @@
           <button class="btn secondary-btn">اكتشف المزيد</button>
         </div>
       </div>
-      
-      </div>
+    </div>
 
     <div class="stats-bar container">
         <div class="stat-item">
@@ -40,29 +39,60 @@ export default {
 <style lang="scss" scoped>
 @import '../../assets/styles/_variables.scss'; 
 
+// تعريف متغير لمسار الصورة لتكون ساعة القمر المضيئة (03da7890f3405e5df63cfebd14f0db0e.jpg)
+$hero-image-path: '../../assets/imgs/03da7890f3405e5df63cfebd14f0db0e.jpg'; 
+
 .hero-section {
-    padding: 80px 0;
-    // استخدام تدرج لوني عميق للخلفية
-    background-image: linear-gradient(135deg, $dark-primary 0%, $dark-secondary 100%);
     position: relative;
     overflow: hidden;
+    min-height: 85vh; // ارتفاع مناسب لإظهار المحتوى والإحصائيات
+    color: $light-text; // تحديد لون النص الأساسي ليكون فاتحاً
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; // لدفع شريط الإحصائيات للأسفل
+    
+    // ⬅️ إنشاء طبقة Overlay (بدلاً من background-blend-mode)
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1; // ليكون تحت النصوص
+        
+        // تدرج لوني داكن وقوي كـ Overlay (0.85 opacity) فوق الصورة
+        background-image: 
+            linear-gradient(rgba($dark-primary, 0.85), rgba($dark-primary, 0.85)), 
+            url($hero-image-path);
+            
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
 }
 
 .hero-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    text-align: right;
+    padding-top: 100px; 
+    padding-bottom: 50px;
+    z-index: 2; // التأكد من أن النص فوق الـ Overlay
     
-    @media (max-width: 768px) {
-        flex-direction: column;
-        text-align: center;
+    .text-side {
+        max-width: 600px; // تحديد عرض جانب النص ليكون أكثر تركيزاً
+        text-align: right;
+        
+        @media (max-width: 768px) {
+            text-align: center;
+            max-width: 100%;
+        }
     }
 }
 
 .main-title {
     font-size: 3.5rem;
+    line-height: 1.3;
     margin-bottom: 20px;
+    color: $accent-color; // استخدام اللون الذهبي للعنون
     
     @media (max-width: 768px) {
         font-size: 2.5rem;
@@ -70,75 +100,86 @@ export default {
 }
 
 .subtitle {
-    font-size: 1.2rem;
-    line-height: 1.8;
-    margin-bottom: 40px;
+    font-size: 1.25rem;
+    margin-bottom: 30px;
+    color: rgba($light-text, 0.9);
 }
 
 .action-buttons {
     display: flex;
-    gap: 20px;
+    gap: 15px;
     
     @media (max-width: 768px) {
         justify-content: center;
-        width: 100%;
+    }
+    
+    .btn {
+        padding: 12px 30px;
+        border: none;
+        border-radius: 40px;
+        font-size: 1rem;
+        cursor: pointer;
+        font-weight: bold;
+        transition: transform 0.2s;
+        
+        &:hover {
+            transform: translateY(-2px);
+        }
+    }
+    
+    .primary-btn {
+        background-color: $accent-color;
+        color: $dark-primary;
+    }
+    
+    .secondary-btn {
+        background-color: transparent;
+        color: $light-text;
+        border: 2px solid $light-text;
     }
 }
 
-.btn {
-    padding: 15px 30px;
-    border: 2px solid;
-    border-radius: 4px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.primary-btn {
-    background-color: $accent-color;
-    color: $dark-primary;
-    border-color: $accent-color;
-    &:hover {
-        background-color: darken($accent-color, 10%);
-        border-color: darken($accent-color, 10%);
-    }
-}
-
-.secondary-btn {
-    background: none;
-    color: $light-text;
-    border-color: $light-text;
-    &:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-    }
-}
+/* -------------------- شريط الإحصائيات -------------------- */
 
 .stats-bar {
+    z-index: 2; 
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.3); // خلفية شفافة تبرز الإحصائيات
-    border-radius: 8px;
-    padding: 20px;
-    margin-top: 50px;
+    padding: 30px 40px;
+    border-top: 1px solid rgba($light-text, 0.1);
     
-    @media (max-width: 600px) {
-        flex-wrap: wrap;
-        gap: 20px;
+    .stat-item {
+        text-align: center;
+        width: 8rem;
+        height: 8rem;
+        border:0.02rem solid $accent-color ;
+        padding: 2rem;
+        border-radius: 11rem;
+        margin: 1rem ;
+        gap:2rem;
     }
-}
-
-.stat-item {
-    text-align: center;
+    
     .stat-number {
-        display: block;
-        font-size: 2.5rem;
-        font-weight: 900;
+        font-size: 2rem;
+        font-weight: bold;
         color: $accent-color;
+        display: block;
+        
+        @media (max-width: 768px) {
+            font-size: 2rem;
+        }
     }
+    
     .stat-label {
         font-size: 1rem;
-        color: rgba(255, 255, 255, 0.8);
+        color: rgba($light-text, 0.7);
+    }
+    
+    @media (max-width: 768px) {
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: space-around;
     }
 }
 </style>
